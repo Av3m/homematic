@@ -1,4 +1,4 @@
-module homematic
+module github.com/Av3m/homematic
 
 go 1.15
 

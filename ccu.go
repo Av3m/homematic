@@ -8,8 +8,8 @@ import (
 
 	"github.com/spf13/cast"
 
-	"homematic/rpc"
-	"homematic/script"
+	"github.com/Av3m/homematic/rpc"
+	"github.com/Av3m/homematic/script"
 )
 
 // NewCCU creates a new connection to a CCU

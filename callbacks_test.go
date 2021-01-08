@@ -3,10 +3,9 @@ package homematic
 import (
 	"testing"
 
+	"github.com/Av3m/homematic/rpc"
+	"github.com/Av3m/homematic/script"
 	"github.com/stretchr/testify/assert"
-
-	"homematic/rpc"
-	"homematic/script"
 )
 
 func TestCCU_handleCallback(t *testing.T) {

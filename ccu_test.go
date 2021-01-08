@@ -2,13 +2,11 @@ package homematic
 
 import (
 	"fmt"
+	"github.com/Av3m/homematic/rpc"
+	"github.com/Av3m/homematic/script"
+	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
-
-	"homematic/rpc"
-	"homematic/script"
 )
 
 type testRpcClient func(method string, params []interface{}) (*rpc.Response, error)
