@@ -2,10 +2,8 @@ package homematic
 
 import (
 	"time"
-
 	"github.com/spf13/cast"
-
-	"gitlab.com/bboehmke/homematic/rpc"
+	"homematic/rpc"
 )
 
 // handle received callback request

@@ -7,8 +7,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"gitlab.com/bboehmke/homematic/rpc"
-	"gitlab.com/bboehmke/homematic/script"
+	"homematic/rpc"
+	"homematic/script"
 )
 
 type testRpcClient func(method string, params []interface{}) (*rpc.Response, error)
@@ -30,7 +30,7 @@ func (c testScriptClient) Call(script string) (script.Result, error) {
 func TestCCU_checkEventHandling(t *testing.T) {
 	ass := assert.New(t)
 
-	ccu, err := NewCCU("127.0.0.1")
+	ccu, err := NewCCU("127.0.0.1", true, true, true)
 	ass.NoError(err)
 
 	var client testRpcClient = func(method string, params []interface{}) (*rpc.Response, error) {
@@ -68,7 +68,7 @@ func TestCCU_checkEventHandling(t *testing.T) {
 func TestCCU_GetDevices(t *testing.T) {
 	ass := assert.New(t)
 
-	ccu, err := NewCCU("127.0.0.1")
+	ccu, err := NewCCU("127.0.0.1", true, true, true)
 	ass.NoError(err)
 
 	var rpcClient testRpcClient = func(method string, params []interface{}) (*rpc.Response, error) {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cast"
 
-	"gitlab.com/bboehmke/homematic/rpc"
+	"homematic/rpc"
 )
 
 var devNameScript = `string s_device;

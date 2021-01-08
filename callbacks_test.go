@@ -5,14 +5,14 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"gitlab.com/bboehmke/homematic/rpc"
-	"gitlab.com/bboehmke/homematic/script"
+	"homematic/rpc"
+	"homematic/script"
 )
 
 func TestCCU_handleCallback(t *testing.T) {
 	ass := assert.New(t)
 
-	ccu, err := NewCCU("127.0.0.1")
+	ccu, err := NewCCU("127.0.0.1", true, true, true)
 	ass.NoError(err)
 
 	resp, fault := ccu.handleCallback("unknown", nil)
@@ -41,7 +41,7 @@ func TestCCU_handleCallback(t *testing.T) {
 func TestCCU_callbackEvent(t *testing.T) {
 	ass := assert.New(t)
 
-	ccu, err := NewCCU("127.0.0.1")
+	ccu, err := NewCCU("127.0.0.1", true, true, true)
 	ass.NoError(err)
 
 	resp, fault := ccu.callbackEvent(nil)
@@ -68,7 +68,7 @@ func TestCCU_callbackEvent(t *testing.T) {
 func TestCCU_callbackListDevices(t *testing.T) {
 	ass := assert.New(t)
 
-	ccu, err := NewCCU("127.0.0.1")
+	ccu, err := NewCCU("127.0.0.1", true, true, true)
 	ass.NoError(err)
 
 	ccu.devices["aaa"] = &Device{
@@ -88,7 +88,7 @@ func TestCCU_callbackListDevices(t *testing.T) {
 func TestCCU_callbackNewDevices(t *testing.T) {
 	ass := assert.New(t)
 
-	ccu, err := NewCCU("127.0.0.1")
+	ccu, err := NewCCU("127.0.0.1", true, true, true)
 	ass.NoError(err)
 
 	resp, fault := ccu.callbackNewDevices([]interface{}{"unknown", nil})

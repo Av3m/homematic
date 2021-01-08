@@ -8,23 +8,38 @@ import (
 
 	"github.com/spf13/cast"
 
-	"gitlab.com/bboehmke/homematic/rpc"
-	"gitlab.com/bboehmke/homematic/script"
+	"homematic/rpc"
+	"homematic/script"
 )
 
 // NewCCU creates a new connection to a CCU
-func NewCCU(address string) (*CCU, error) {
-	return NewCCUCustom(address, "go")
+func NewCCU(address string, wired bool, rf bool, hmip bool) (*CCU, error) {
+	return NewCCUCustom(address, "go", wired, rf, hmip)
+}
+
+func createRpcClients(address string, id string, wired bool, rf bool, hmip bool) map[string]rpc.Client {
+	rpcClients := make(map[string] rpc.Client)
+
+	if wired {
+		rpcClients[fmt.Sprintf("%s-wired", id)] = rpc.NewClient(fmt.Sprintf("http://%s:2000/", address))
+
+	}
+
+	if rf {
+		rpcClients[fmt.Sprintf("%s-rf", id)] = rpc.NewClient(fmt.Sprintf("http://%s:2001/", address))
+	}
+
+	if hmip {
+		rpcClients[fmt.Sprintf("%s-hmip", id)] = rpc.NewClient(fmt.Sprintf("http://%s:2010/", address))
+	}
+
+	return rpcClients
 }
 
 // NewCCUCustom creates a new connection to a CCU with custom id
-func NewCCUCustom(address, id string) (*CCU, error) {
+func NewCCUCustom(address, id string, wired bool, rf bool, hmip bool) (*CCU, error) {
 	ccu := &CCU{
-		rpcClients: map[string]rpc.Client{
-			fmt.Sprintf("%s-wired", id): rpc.NewClient(fmt.Sprintf("http://%s:2000/", address)),
-			fmt.Sprintf("%s-rf", id):    rpc.NewClient(fmt.Sprintf("http://%s:2001/", address)),
-			fmt.Sprintf("%s-hmip", id):  rpc.NewClient(fmt.Sprintf("http://%s:2010/", address)),
-		},
+		rpcClients: createRpcClients(address, id, wired, rf, hmip),
 		scriptClient: script.NewClient(fmt.Sprintf("http://%s:8181/", address)),
 		devices:      make(map[string]*Device),
 	}

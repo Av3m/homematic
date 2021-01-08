@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"gitlab.com/bboehmke/homematic/rpc"
+	"homematic/rpc"
 )
 
 func TestDevice_nameChanged(t *testing.T) {
