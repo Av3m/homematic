@@ -85,6 +85,11 @@ func (d *Device) SetValueChangedHandler(handler func(key string, value interface
 	d.onValueChange = handler
 }
 
+// nameChanged updates device name
+func (d *Device) GetClient() rpc.Client {
+	return d.client
+}
+
 // HasValues returns true if device has values
 func (d *Device) HasValues() bool {
 	for _, p := range d.ParamSets {
