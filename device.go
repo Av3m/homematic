@@ -1,6 +1,7 @@
 package homematic
 
 import (
+	log "github.com/sirupsen/logrus"
 	"sync"
 
 	"github.com/spf13/cast"
@@ -88,6 +89,16 @@ func (d *Device) SetValueChangedHandler(handler func(key string, value interface
 // GetClient gets internal rpc client instance
 func (d *Device) GetClient() rpc.Client {
 	return d.client
+}
+
+
+func (d *Device) ReportValueUsage(valueId string, ref_counter uint32) (bool, error) {
+	resp, err := d.client.Call("reportValueUsage", []interface{}{d.Address, valueId, ref_counter})
+	if err != nil {
+		log.Error(resp.Fault.String, resp.Fault.Code)
+		return false, err
+	}
+	return resp.FirstParam().(bool), nil
 }
 
 // HasValues returns true if device has values
