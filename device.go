@@ -85,7 +85,7 @@ func (d *Device) SetValueChangedHandler(handler func(key string, value interface
 	d.onValueChange = handler
 }
 
-// nameChanged updates device name
+// GetClient gets internal rpc client instance
 func (d *Device) GetClient() rpc.Client {
 	return d.client
 }
